@@ -117,8 +117,16 @@
      */
     return function () {
         cases = {};
-        _.each(jsFixtures, addJSFixture);
-        _.each(jsonFixtures, addJsonFixture);
+        // iterate over jsFixtures object and add each JS fixture
+        Object.keys(jsFixtures).forEach(k => {
+            addJSFixture(jsFixtures[k], k);
+        });
+
+        // iterate over jsonFixtures object and add each JSON fixture
+        Object.keys(jsonFixtures).forEach(k => {
+            addJsonFixture(jsonFixtures[k], k);
+        });
+
         return cases;
     }
 }));

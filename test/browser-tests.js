@@ -84,12 +84,12 @@ function browserRunner(cases) {
 
         // Create `it` for tests
         tests = _.omit(tree, _.isObject);
-        _.each(_.keys(tests), function (testPath) {
+        Object.keys(tests).forEach(function (testPath) {
             var testCases = _.omit(cases, function (testCase, key) {
-                return !_.contains(key, path + "/" + testPath);
+                return !key.includes(path + "/" + testPath);
             })
 
-            _.each(testCases, function (testCase) {
+            _.forEach(testCases, function (testCase) {
                 it(testCaseName(testCase), function () {
                     evaluateTestCase(testCase);
                 });
@@ -98,7 +98,7 @@ function browserRunner(cases) {
 
         // Create `describe` for test directories
         testDirectory = _.omit(tree, _.isNull);
-        _.each(testDirectory, function (subTree, key) {
+        _.forEach(testDirectory, function (subTree, key) {
             describe(key, function () {
                 var newPath = path != "" ? path + "/" + key : key;
                 describeTests(subTree, newPath)
@@ -106,7 +106,7 @@ function browserRunner(cases) {
         })
     }
 
-    describeTests(buildTree(_.keys(cases)), '');
+    describeTests(buildTree(Object.keys(cases)), '');
 }
 
 evaluateTestCase = window.evaluateTestCase;
